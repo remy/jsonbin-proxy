@@ -19,15 +19,10 @@ export default async (request: Request) => {
     }
 
     // Fetch the data from the new URL with the original request method and headers
-    const response = await fetch(newUrl.toString(), {
+    return fetch(newUrl.toString(), {
       method: request.method,
       headers: request.headers,
-    });
-
-    // Return the response from the target host
-    return new Response(response.body, {
-      status: response.status,
-      headers: response.headers,
+      redirect: 'manual',
     });
   } catch (error) {
     console.error('Error:', error);
